@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/chengzekun/osm-cpp/ped.cpp
+ped.h
+/home/chengzekun/osm-cpp/ped.h
+
+/home/chengzekun/osm-cpp/ped.h
+
+/home/chengzekun/osm-cpp/pos.cpp
+pos.h
+/home/chengzekun/osm-cpp/pos.h
+
+/home/chengzekun/osm-cpp/pos.h
+

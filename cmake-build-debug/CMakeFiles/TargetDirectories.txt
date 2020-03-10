@@ -1,0 +1,4 @@
+/home/chengzekun/osm-cpp/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/chengzekun/osm-cpp/cmake-build-debug/CMakeFiles/osm-cpp.dir
+/home/chengzekun/osm-cpp/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/chengzekun/osm-cpp/cmake-build-debug/CMakeFiles/osm-cpp_autogen.dir
