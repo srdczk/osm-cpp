@@ -10,6 +10,9 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/chengzekun/osm-cpp/ped.cpp" "/home/chengzekun/osm-cpp/cmake-build-debug/CMakeFiles/osm-cpp.dir/ped.cpp.o"
   "/home/chengzekun/osm-cpp/pos.cpp" "/home/chengzekun/osm-cpp/cmake-build-debug/CMakeFiles/osm-cpp.dir/pos.cpp.o"
   "/home/chengzekun/osm-cpp/scene.cpp" "/home/chengzekun/osm-cpp/cmake-build-debug/CMakeFiles/osm-cpp.dir/scene.cpp.o"
+  "/home/chengzekun/osm-cpp/space.cpp" "/home/chengzekun/osm-cpp/cmake-build-debug/CMakeFiles/osm-cpp.dir/space.cpp.o"
+  "/home/chengzekun/osm-cpp/util.cpp" "/home/chengzekun/osm-cpp/cmake-build-debug/CMakeFiles/osm-cpp.dir/util.cpp.o"
+  "/home/chengzekun/osm-cpp/wall.cpp" "/home/chengzekun/osm-cpp/cmake-build-debug/CMakeFiles/osm-cpp.dir/wall.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -25,11 +28,11 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "."
   "../"
   "osm-cpp_autogen/include"
-  "/usr/include/qt"
-  "/usr/include/qt/QtWidgets"
-  "/usr/include/qt/QtGui"
-  "/usr/include/qt/QtCore"
-  "/usr/lib/qt/mkspecs/linux-g++"
+  "/home/chengzekun/Qt5.12.6/5.12.6/gcc_64/include"
+  "/home/chengzekun/Qt5.12.6/5.12.6/gcc_64/include/QtWidgets"
+  "/home/chengzekun/Qt5.12.6/5.12.6/gcc_64/include/QtGui"
+  "/home/chengzekun/Qt5.12.6/5.12.6/gcc_64/include/QtCore"
+  "/home/chengzekun/Qt5.12.6/5.12.6/gcc_64/./mkspecs/linux-g++"
   )
 
 # Targets to which this target links.

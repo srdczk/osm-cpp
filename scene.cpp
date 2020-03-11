@@ -1,11 +1,9 @@
-//
-// Created by srdczk on 20-3-10.
-//
+
 
 #include <iostream>
-#include <QPainter>
 #include <QKeyEvent>
 #include <QDebug>
+#include "util.h"
 #include "scene.h"
 
 
@@ -13,8 +11,8 @@ Scene::Scene(QWidget *parent) {
 
     setFixedSize(800, 800);
     this->setFocusPolicy(Qt::StrongFocus);
-    x = 30;
-    y = 30;
+    x = 0;
+    y = 0;
     startButton_ = new QPushButton("start");
     initButton_ = new QPushButton("init");
     startButton_->setFixedSize(40, 20);
@@ -32,6 +30,7 @@ Scene::Scene(QWidget *parent) {
             startButton_->setText("start");
         }
     });
+    space.init();
 }
 
 void Scene::keyPressEvent(QKeyEvent *event) {
@@ -40,8 +39,8 @@ void Scene::keyPressEvent(QKeyEvent *event) {
 
 void Scene::timerEvent(QTimerEvent *event) {
     if (event->timerId() == timerId_) {
-        x++;
-        y++;
+        x += 0.1;
+        y += 0.1;
         this->update();
     }
 }
@@ -56,5 +55,10 @@ void Scene::paintEvent(QPaintEvent *event) {
     painter.drawRect(this->rect());
 
     painter.setBrush(Qt::red);
-    painter.drawEllipse(x, y, 30, 30);
+    painter.drawEllipse(0, 0, 30, 30);
+    painter.drawEllipse(QPointF(60, 60), 30, 30);
+//    drawCircle(x, y, 0.4, &painter);
+    for (auto &wall : *space.getWalls()) {
+        drawWall(&wall, &painter);
+    }
 }

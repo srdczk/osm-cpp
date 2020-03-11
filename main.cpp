@@ -1,7 +1,9 @@
 #include "mainwindow.h"
 
+#include <iostream>
 #include <QApplication>
 #include <QDesktopWidget>
+#include <QDebug>
 
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);

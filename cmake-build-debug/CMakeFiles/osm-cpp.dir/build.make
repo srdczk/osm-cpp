@@ -34,10 +34,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/chengzekun/下载/clion-2018.3.4/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /home/chengzekun/clion/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /home/chengzekun/下载/clion-2018.3.4/bin/cmake/linux/bin/cmake -E remove -f
+RM = /home/chengzekun/clion/bin/cmake/linux/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -122,9 +122,48 @@ CMakeFiles/osm-cpp.dir/pos.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/osm-cpp.dir/pos.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/chengzekun/osm-cpp/pos.cpp -o CMakeFiles/osm-cpp.dir/pos.cpp.s
 
+CMakeFiles/osm-cpp.dir/wall.cpp.o: CMakeFiles/osm-cpp.dir/flags.make
+CMakeFiles/osm-cpp.dir/wall.cpp.o: ../wall.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/chengzekun/osm-cpp/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/osm-cpp.dir/wall.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/osm-cpp.dir/wall.cpp.o -c /home/chengzekun/osm-cpp/wall.cpp
+
+CMakeFiles/osm-cpp.dir/wall.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/osm-cpp.dir/wall.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/chengzekun/osm-cpp/wall.cpp > CMakeFiles/osm-cpp.dir/wall.cpp.i
+
+CMakeFiles/osm-cpp.dir/wall.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/osm-cpp.dir/wall.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/chengzekun/osm-cpp/wall.cpp -o CMakeFiles/osm-cpp.dir/wall.cpp.s
+
+CMakeFiles/osm-cpp.dir/util.cpp.o: CMakeFiles/osm-cpp.dir/flags.make
+CMakeFiles/osm-cpp.dir/util.cpp.o: ../util.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/chengzekun/osm-cpp/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/osm-cpp.dir/util.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/osm-cpp.dir/util.cpp.o -c /home/chengzekun/osm-cpp/util.cpp
+
+CMakeFiles/osm-cpp.dir/util.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/osm-cpp.dir/util.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/chengzekun/osm-cpp/util.cpp > CMakeFiles/osm-cpp.dir/util.cpp.i
+
+CMakeFiles/osm-cpp.dir/util.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/osm-cpp.dir/util.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/chengzekun/osm-cpp/util.cpp -o CMakeFiles/osm-cpp.dir/util.cpp.s
+
+CMakeFiles/osm-cpp.dir/space.cpp.o: CMakeFiles/osm-cpp.dir/flags.make
+CMakeFiles/osm-cpp.dir/space.cpp.o: ../space.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/chengzekun/osm-cpp/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/osm-cpp.dir/space.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/osm-cpp.dir/space.cpp.o -c /home/chengzekun/osm-cpp/space.cpp
+
+CMakeFiles/osm-cpp.dir/space.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/osm-cpp.dir/space.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/chengzekun/osm-cpp/space.cpp > CMakeFiles/osm-cpp.dir/space.cpp.i
+
+CMakeFiles/osm-cpp.dir/space.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/osm-cpp.dir/space.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/chengzekun/osm-cpp/space.cpp -o CMakeFiles/osm-cpp.dir/space.cpp.s
+
 CMakeFiles/osm-cpp.dir/osm-cpp_autogen/mocs_compilation.cpp.o: CMakeFiles/osm-cpp.dir/flags.make
 CMakeFiles/osm-cpp.dir/osm-cpp_autogen/mocs_compilation.cpp.o: osm-cpp_autogen/mocs_compilation.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/chengzekun/osm-cpp/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/osm-cpp.dir/osm-cpp_autogen/mocs_compilation.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/chengzekun/osm-cpp/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/osm-cpp.dir/osm-cpp_autogen/mocs_compilation.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/osm-cpp.dir/osm-cpp_autogen/mocs_compilation.cpp.o -c /home/chengzekun/osm-cpp/cmake-build-debug/osm-cpp_autogen/mocs_compilation.cpp
 
 CMakeFiles/osm-cpp.dir/osm-cpp_autogen/mocs_compilation.cpp.i: cmake_force
@@ -142,6 +181,9 @@ osm__cpp_OBJECTS = \
 "CMakeFiles/osm-cpp.dir/scene.cpp.o" \
 "CMakeFiles/osm-cpp.dir/ped.cpp.o" \
 "CMakeFiles/osm-cpp.dir/pos.cpp.o" \
+"CMakeFiles/osm-cpp.dir/wall.cpp.o" \
+"CMakeFiles/osm-cpp.dir/util.cpp.o" \
+"CMakeFiles/osm-cpp.dir/space.cpp.o" \
 "CMakeFiles/osm-cpp.dir/osm-cpp_autogen/mocs_compilation.cpp.o"
 
 # External object files for target osm-cpp
@@ -152,13 +194,16 @@ osm-cpp: CMakeFiles/osm-cpp.dir/mainwindow.cpp.o
 osm-cpp: CMakeFiles/osm-cpp.dir/scene.cpp.o
 osm-cpp: CMakeFiles/osm-cpp.dir/ped.cpp.o
 osm-cpp: CMakeFiles/osm-cpp.dir/pos.cpp.o
+osm-cpp: CMakeFiles/osm-cpp.dir/wall.cpp.o
+osm-cpp: CMakeFiles/osm-cpp.dir/util.cpp.o
+osm-cpp: CMakeFiles/osm-cpp.dir/space.cpp.o
 osm-cpp: CMakeFiles/osm-cpp.dir/osm-cpp_autogen/mocs_compilation.cpp.o
 osm-cpp: CMakeFiles/osm-cpp.dir/build.make
-osm-cpp: /usr/lib/libQt5Widgets.so.5.14.0
-osm-cpp: /usr/lib/libQt5Gui.so.5.14.0
-osm-cpp: /usr/lib/libQt5Core.so.5.14.0
+osm-cpp: /home/chengzekun/Qt5.12.6/5.12.6/gcc_64/lib/libQt5Widgets.so.5.12.6
+osm-cpp: /home/chengzekun/Qt5.12.6/5.12.6/gcc_64/lib/libQt5Gui.so.5.12.6
+osm-cpp: /home/chengzekun/Qt5.12.6/5.12.6/gcc_64/lib/libQt5Core.so.5.12.6
 osm-cpp: CMakeFiles/osm-cpp.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/chengzekun/osm-cpp/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable osm-cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/chengzekun/osm-cpp/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable osm-cpp"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/osm-cpp.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

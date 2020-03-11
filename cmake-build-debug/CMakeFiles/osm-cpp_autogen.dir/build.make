@@ -34,10 +34,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/chengzekun/下载/clion-2018.3.4/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /home/chengzekun/clion/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /home/chengzekun/下载/clion-2018.3.4/bin/cmake/linux/bin/cmake -E remove -f
+RM = /home/chengzekun/clion/bin/cmake/linux/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -55,7 +55,7 @@ include CMakeFiles/osm-cpp_autogen.dir/progress.make
 
 CMakeFiles/osm-cpp_autogen:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/chengzekun/osm-cpp/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC and UIC for target osm-cpp"
-	/home/chengzekun/下载/clion-2018.3.4/bin/cmake/linux/bin/cmake -E cmake_autogen /home/chengzekun/osm-cpp/cmake-build-debug/CMakeFiles/osm-cpp_autogen.dir/AutogenInfo.cmake Debug
+	/home/chengzekun/clion/bin/cmake/linux/bin/cmake -E cmake_autogen /home/chengzekun/osm-cpp/cmake-build-debug/CMakeFiles/osm-cpp_autogen.dir/AutogenInfo.cmake Debug
 
 osm-cpp_autogen: CMakeFiles/osm-cpp_autogen
 osm-cpp_autogen: CMakeFiles/osm-cpp_autogen.dir/build.make

@@ -1,16 +1,18 @@
-//
-// Created by srdczk on 20-3-10.
-//
-
 #ifndef OSM_CPP_PED_H
 #define OSM_CPP_PED_H
 
+#include "pos.h"
 
 class Ped {
 private:
-    double x, y;
+    Pos curPos_;
+    // space 指针 -> 指向 所处的环境
+    void *space_;
 public:
-private:
+    Ped(double x, double y, void *space);
+    void move();
+    double getX();
+    double getY();
 };
 
 

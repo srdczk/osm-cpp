@@ -39,10 +39,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/chengzekun/下载/clion-2018.3.4/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /home/chengzekun/clion/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /home/chengzekun/下载/clion-2018.3.4/bin/cmake/linux/bin/cmake -E remove -f
+RM = /home/chengzekun/clion/bin/cmake/linux/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /home/chengzekun/osm-cpp/cmake-build-debug
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/chengzekun/下载/clion-2018.3.4/bin/cmake/linux/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/home/chengzekun/clion/bin/cmake/linux/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -70,7 +70,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/chengzekun/下载/clion-2018.3.4/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/home/chengzekun/clion/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -298,6 +298,87 @@ scene.cpp.s:
 	$(MAKE) -f CMakeFiles/osm-cpp.dir/build.make CMakeFiles/osm-cpp.dir/scene.cpp.s
 .PHONY : scene.cpp.s
 
+space.o: space.cpp.o
+
+.PHONY : space.o
+
+# target to build an object file
+space.cpp.o:
+	$(MAKE) -f CMakeFiles/osm-cpp.dir/build.make CMakeFiles/osm-cpp.dir/space.cpp.o
+.PHONY : space.cpp.o
+
+space.i: space.cpp.i
+
+.PHONY : space.i
+
+# target to preprocess a source file
+space.cpp.i:
+	$(MAKE) -f CMakeFiles/osm-cpp.dir/build.make CMakeFiles/osm-cpp.dir/space.cpp.i
+.PHONY : space.cpp.i
+
+space.s: space.cpp.s
+
+.PHONY : space.s
+
+# target to generate assembly for a file
+space.cpp.s:
+	$(MAKE) -f CMakeFiles/osm-cpp.dir/build.make CMakeFiles/osm-cpp.dir/space.cpp.s
+.PHONY : space.cpp.s
+
+util.o: util.cpp.o
+
+.PHONY : util.o
+
+# target to build an object file
+util.cpp.o:
+	$(MAKE) -f CMakeFiles/osm-cpp.dir/build.make CMakeFiles/osm-cpp.dir/util.cpp.o
+.PHONY : util.cpp.o
+
+util.i: util.cpp.i
+
+.PHONY : util.i
+
+# target to preprocess a source file
+util.cpp.i:
+	$(MAKE) -f CMakeFiles/osm-cpp.dir/build.make CMakeFiles/osm-cpp.dir/util.cpp.i
+.PHONY : util.cpp.i
+
+util.s: util.cpp.s
+
+.PHONY : util.s
+
+# target to generate assembly for a file
+util.cpp.s:
+	$(MAKE) -f CMakeFiles/osm-cpp.dir/build.make CMakeFiles/osm-cpp.dir/util.cpp.s
+.PHONY : util.cpp.s
+
+wall.o: wall.cpp.o
+
+.PHONY : wall.o
+
+# target to build an object file
+wall.cpp.o:
+	$(MAKE) -f CMakeFiles/osm-cpp.dir/build.make CMakeFiles/osm-cpp.dir/wall.cpp.o
+.PHONY : wall.cpp.o
+
+wall.i: wall.cpp.i
+
+.PHONY : wall.i
+
+# target to preprocess a source file
+wall.cpp.i:
+	$(MAKE) -f CMakeFiles/osm-cpp.dir/build.make CMakeFiles/osm-cpp.dir/wall.cpp.i
+.PHONY : wall.cpp.i
+
+wall.s: wall.cpp.s
+
+.PHONY : wall.s
+
+# target to generate assembly for a file
+wall.cpp.s:
+	$(MAKE) -f CMakeFiles/osm-cpp.dir/build.make CMakeFiles/osm-cpp.dir/wall.cpp.s
+.PHONY : wall.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -326,6 +407,15 @@ help:
 	@echo "... scene.o"
 	@echo "... scene.i"
 	@echo "... scene.s"
+	@echo "... space.o"
+	@echo "... space.i"
+	@echo "... space.s"
+	@echo "... util.o"
+	@echo "... util.i"
+	@echo "... util.s"
+	@echo "... wall.o"
+	@echo "... wall.i"
+	@echo "... wall.s"
 .PHONY : help
 
 
