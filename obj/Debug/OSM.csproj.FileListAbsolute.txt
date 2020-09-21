@@ -1,0 +1,10 @@
+C:\Users\86177\RiderProjects\OSM\bin\Debug\OSM.exe.config
+C:\Users\86177\RiderProjects\OSM\bin\Debug\OSM.exe
+C:\Users\86177\RiderProjects\OSM\bin\Debug\OSM.pdb
+C:\Users\86177\RiderProjects\OSM\obj\Debug\OSM.csprojAssemblyReference.cache
+C:\Users\86177\RiderProjects\OSM\obj\Debug\OSM.Properties.Resources.resources
+C:\Users\86177\RiderProjects\OSM\obj\Debug\OSM.csproj.GenerateResource.cache
+C:\Users\86177\RiderProjects\OSM\obj\Debug\OSM.exe
+C:\Users\86177\RiderProjects\OSM\obj\Debug\OSM.pdb
+C:\Users\86177\RiderProjects\OSM\obj\Debug\OSM.Form1.resources
+C:\Users\86177\RiderProjects\OSM\obj\Debug\OSM.csproj.CoreCompileInputs.cache
