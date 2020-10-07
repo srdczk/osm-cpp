@@ -152,7 +152,7 @@ namespace OSM
                 DrawWall(g, wall);
             }
             
-            DrawText(g, (floor.Number + 1).ToString(), floor.AddX + 2, floor.AddY - 1.2);
+            DrawText(g, (floor.Number + 1).ToString() + "-" + (floor.Number + 2).ToString(), floor.AddX + 1.5, floor.AddY - 1.2);
         }
         // corner width of evacuation
         public static double GetCornerSff(double max, double min, double tanX)
