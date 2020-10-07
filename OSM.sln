@@ -1,6 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSM", "OSM.csproj", "{2789BE47-5983-4810-86B1-3F4959A42B22}"
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2019
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSM", "OSM\OSM.csproj", "{60BD1475-AF3E-4720-8275-7B7316BDDD24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -8,9 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2789BE47-5983-4810-86B1-3F4959A42B22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2789BE47-5983-4810-86B1-3F4959A42B22}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2789BE47-5983-4810-86B1-3F4959A42B22}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2789BE47-5983-4810-86B1-3F4959A42B22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60BD1475-AF3E-4720-8275-7B7316BDDD24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60BD1475-AF3E-4720-8275-7B7316BDDD24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60BD1475-AF3E-4720-8275-7B7316BDDD24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60BD1475-AF3E-4720-8275-7B7316BDDD24}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {10AB4465-3833-469A-9B18-518E8A1CCFC9}
 	EndGlobalSection
 EndGlobal

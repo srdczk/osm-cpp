@@ -1,9 +1,10 @@
+﻿
+
 namespace OSM
 {
-    // 分块枚举常量
-    public enum Block 
+    public enum Block
     {
-        // 楼梯分块枚举常量
+        // different zones
         StartBlock,
         FirstCorner,
         FirstStair,
@@ -16,5 +17,4 @@ namespace OSM
         ExitBlock,
         OutOfSize
     }
-
 }
