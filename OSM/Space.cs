@@ -1,17 +1,26 @@
-﻿
+﻿using System;
+using System.IO;
 using System.Collections.Generic;
+
 
 namespace OSM
 {
     class Space
     {
         public List<Floor> Floors { get; }
+
+        // fileName
+        public string FileName { get; set; }
+
+        private Reporter reporter;
+
         public Space()
         {
             Floors = new List<Floor>();
         }
+
         // init floors
-        public Space Init()
+        public Space Init(bool report)
         {
             Floors.Clear();
             Util.kId = 0;
@@ -52,8 +61,52 @@ namespace OSM
                 Util.kWidth = (Util.kFloorNum - 10) * 5.0;
                 Util.kHeight = 20.0 + (Util.kFloorNum - 10) * 2.0;
             }
-            
+
+            Util.kPedSum = (Util.kInitPedNum) * (Util.kFloorNum - 1);
+
+            if (report)
+                // generate file name for this
+                GenerateFileName();
+
+            if (reporter != null)
+            {
+                reporter.Stop();
+            }
+
+            if (report)
+                reporter = new Reporter(FileName, Util.kFloorNum);
+            else
+                reporter = null;
+
             return this;
         }
+
+        private void GenerateFileName()
+        {
+            var path = "./report/";
+            var now = DateTime.Now;
+            path += now.Year.ToString().Substring(2) + "-" + now.Month.ToString() + "-" +
+                now.Day.ToString() + "-" + now.Hour.ToString() + "-" + now.Minute.ToString() + "f" + Util.kFloorNum + "p" + Util.kFloorPedNum;
+            FileName = path + "/";
+            
+            if (!Directory.Exists(FileName))
+            {
+                Directory.CreateDirectory(FileName);
+            }
+        }
+
+        // add to report, every timer will do this
+        public void AddToReporter(string line)
+        {
+            reporter.AddReport(line);
+        }
+
+        // stop report when close
+        public void StopReport()
+        {
+            if (reporter != null)
+                reporter.Stop();
+        }
+
     }
 }

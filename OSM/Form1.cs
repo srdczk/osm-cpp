@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -25,13 +26,24 @@ namespace OSM
             // set double buffer
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw | ControlStyles.AllPaintingInWmPaint, true);
             // ped and ped's move should run in timer_tick
+            // before space init
+            GenerateDirectory();
 
-            space = new Space().Init();
+            space = new Space().Init(Util.kReport);
 
             InitializeComponent();
-            
 
             timer1.Enabled = false;
+        }
+
+        // generate report directory
+        private void GenerateDirectory()
+        {
+            var path = "./report/";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
         }
 
         private void RemoveAll()
@@ -46,6 +58,10 @@ namespace OSM
 
             foreach (var floor in space.Floors)
             {
+
+                if (Util.kReport)
+                    space.AddToReporter(floor.Number + " " + floor.Peds.Count);
+
                 Util.DrawFloor(graphics, floor);
                 foreach (var ped in floor.Peds)
                 {
@@ -65,15 +81,24 @@ namespace OSM
                 floor.ClearRemove();
             }
 
-            if (Util.kId < (Util.kFloorNum - 1) * Util.kFloorPedNum)
+            if (Util.kId < (Util.kFloorNum - 1) * (Util.kFloorPedNum - Util.kInitPedNum))
             {
                 foreach (var floor in space.Floors)
                 {
                     if (floor.Number != 0)
                     {
-                        if (Util.AddRandomPed(floor, space)) Util.kId++;
+                        if (Util.AddRandomPed(floor, space))
+                        {
+                            Util.kPedSum++;
+                            Util.kId++;
+                        }
                     }
                 }
+            }
+            
+            if (Util.kReport && Util.kPedSum == 0)
+            {
+                space.StopReport();
             }
 
             CreateGraphics().DrawImage(bitmap, 0, 0);
@@ -95,8 +120,20 @@ namespace OSM
         private void button2_Click(object sender, EventArgs e)
         {
             // change and init for this
-            Util.kFloorNum = Util.StringToInt(textBox2.Text);
-            space = space.Init();
+            Util.kFloorNum = Util.StringToInt(textBox2.Text, Util.kMaxFloor, Util.kMinFloor);
+            Util.kFloorPedNum = Util.StringToInt(textBox4.Text, Util.kMaxFloorPedNum, Util.kInitPedNum);
+            // if checked, report else not
+            Util.kReport = checkBox1.Checked;
+            space = space.Init(Util.kReport);
         }
+
+        // form close -> if space's reporter are running -> stop
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (Util.kReport)
+                space.StopReport();
+            
+        }
+
     }
 }

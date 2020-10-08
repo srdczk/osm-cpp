@@ -6,10 +6,18 @@ namespace OSM
 {
     class Util
     {
+        // turn on or off report
+        public static bool kReport = false;
+        // ped sum, to stop report when there is not ped in space
+        public static int kPedSum = (kFloorNum - 1) * (kInitPedNum);
+        // timeout mill seconds
+        public static int kTimeout = 1000;
         // initial ped num
         public static int kInitPedNum = 5;
         // peds per floor
         public static int kFloorPedNum = 100;
+        // max ped's num per floor
+        public static int kMaxFloorPedNum = 105;
         // min and max floors
         public static int kMinFloor = 3;
         public static int kMaxFloor = 50;
@@ -663,16 +671,16 @@ namespace OSM
         }
 
         // read int from input
-        public static int StringToInt(string input)
+        public static int StringToInt(string input, int max, int min)
         {
             int result;
             if (int.TryParse(input.Trim(), out result))
             {
-                if (result < kMinFloor) return kMinFloor;
-                if (result > kMaxFloor) return kMaxFloor;
+                if (result < min) return min;
+                if (result > max) return max;
                 return result;
             }
-            return kMinFloor;
+            return min;
         }
 
     }

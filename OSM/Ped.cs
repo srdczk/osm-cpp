@@ -206,6 +206,8 @@ namespace OSM
                 {
                     GetTarget = true;
                     GetAtFloor().AddToDel(this);
+                    // this ped should be del
+                    Util.kPedSum--;
                 }
             }
         }
