@@ -15,6 +15,10 @@ namespace OSM
 
         private Space space;
 
+        public string ReportLine { get; set; }
+
+        // if not move
+        public bool Can { get; set; }
 
         // ped's init function, generate ped's position and start floor
         public Ped(double x, double y, int floor, Space s)
@@ -26,6 +30,8 @@ namespace OSM
             // not need dir or target pos
             GetTarget = false;
             space = s;
+            ReportLine = "";
+            Can = false;
         }
 
 
@@ -94,8 +100,25 @@ namespace OSM
             // bool can move or can't move
             if (resTarget != null)
             {
-
-                if (Util.CanMove(this, resTarget, space)) CurPos = resTarget;
+                if (Util.CanMove(this, resTarget, space))
+                {
+                    Can = true;
+                    CurPos = resTarget;
+                }
+                else
+                    Can = false;
+            }
+            else
+            {
+                Can = false;
+            }
+            // if can't move
+            if (!Can && GetAtFloor().Peds.Count < 5)
+            {
+                // write to reporter this block and last block
+                // move, don't calculate for this
+                if (resTarget != null && curBlock == Block.SecondStair)
+                    CurPos = resTarget;
             }
         }
 
@@ -166,6 +189,24 @@ namespace OSM
             if (resTarget != null)
             {
                 if (Util.CanMove(this, resTarget, space))
+                {
+                    CurPos = resTarget;
+                    Can = true;
+                }
+                else
+                    Can = false;
+                    
+            }
+            else
+            {
+                Can = false;
+            }
+
+            if (!Can && GetAtFloor().Peds.Count < 5) 
+            {
+                // write to reporter this block and last block
+                // move, don't calculate for this
+                if (resTarget != null && curBlock == Block.SecondStair)
                     CurPos = resTarget;
             }
 
@@ -210,7 +251,18 @@ namespace OSM
                     Util.kPedSum--;
                 }
             }
+
+            if (Util.kReport && !Can)
+            {
+
+                var floor = GetAtFloor();
+                ReportLine = AtFloor + "," + "(" + (CurPos.X - floor.AddX) + "," + (CurPos.Y - floor.AddY) + "):" + 
+                    curBlock.ToString() + " " + desBlock.ToString();
+            }
+            
         }
+
+
 
         public void SetGetTarget()
         {

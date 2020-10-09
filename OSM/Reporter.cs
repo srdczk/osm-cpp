@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 using System.Threading;
 
@@ -29,17 +27,32 @@ namespace OSM
             fileStreams = new List<FileStream>();
             writes = new List<StreamWriter>();
             // every floor has one text
-            for (int i = 0; i < floors; i++)
+            for (int i = 0; i <= floors; i++)
             {
-                var path = fileName + i + ".txt";
-                FileStream fileStream;
-                if (!File.Exists(path))
-                    fileStream = new FileStream(path, FileMode.CreateNew);
+                if (i < floors)
+                {
+                    var path = fileName + i + ".txt";
+                    FileStream fileStream;
+                    if (!File.Exists(path))
+                        fileStream = new FileStream(path, FileMode.CreateNew);
+                    else
+                        fileStream = new FileStream(path, FileMode.Append);
+                    var writer = new StreamWriter(fileStream);
+                    fileStreams.Add(fileStream);
+                    writes.Add(writer);
+                }
                 else
-                    fileStream = new FileStream(path, FileMode.Append);
-                var writer = new StreamWriter(fileStream);
-                fileStreams.Add(fileStream);
-                writes.Add(writer);
+                {
+                    var path = fileName + "peds.txt";
+                    FileStream fileStream;
+                    if (!File.Exists(path))
+                        fileStream = new FileStream(path, FileMode.CreateNew);
+                    else
+                        fileStream = new FileStream(path, FileMode.Append);
+                    var writer = new StreamWriter(fileStream);
+                    fileStreams.Add(fileStream);
+                    writes.Add(writer);
+                }
             }
             outThread.Start();
         }
@@ -60,11 +73,20 @@ namespace OSM
                 if (list == null) continue;
                 foreach (var item in list)
                 {
-                    // output to single files
-                    var ss = item.Split(' ');
-                    var index = int.Parse(ss[0]);
-                    writes[index].WriteLine(ss[1]);
-                    writes[index].Flush();
+                    if (item.Length > 6)
+                    {
+                        var index = writes.Count - 1;
+                        writes[index].WriteLine(item);
+                        writes[index].Flush();
+                    }
+                    else
+                    {
+                        // output to single files
+                        var ss = item.Split(' ');
+                        var index = int.Parse(ss[0]);
+                        writes[index].WriteLine(ss[1]);
+                        writes[index].Flush();
+                    }
                 }
             }
             if (queue != null && queue.Count() > 0)
@@ -76,10 +98,19 @@ namespace OSM
                 {
                     foreach (var item in list)
                     {
-                        var ss = item.Split(' ');
-                        var index = int.Parse(ss[0]);
-                        writes[index].WriteLine(ss[1]);
-                        writes[index].Flush();
+                        if (item.Length > 6)
+                        {
+                            var index = writes.Count - 1;
+                            writes[index].WriteLine(item);
+                            writes[index].Flush();
+                        }
+                        else
+                        {
+                            var ss = item.Split(' ');
+                            var index = int.Parse(ss[0]);
+                            writes[index].WriteLine(ss[1]);
+                            writes[index].Flush();
+                        }
                     }
                 }
             }

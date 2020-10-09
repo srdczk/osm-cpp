@@ -59,13 +59,25 @@ namespace OSM
             foreach (var floor in space.Floors)
             {
 
-                if (Util.kReport)
+                if (Util.kReport && floor.Cnt != -1)
                     space.AddToReporter(floor.Number + " " + floor.Peds.Count);
+
+                if (floor.Cnt == 0 && floor.Peds.Count > 0)
+                {
+                    floor.Cnt = 1;
+                }
+
+                if (floor.Peds.Count == 0 && floor.Cnt == 1)
+                {
+                    floor.Cnt -= 2;
+                }
 
                 Util.DrawFloor(graphics, floor);
                 foreach (var ped in floor.Peds)
                 {
                     ped.Move();
+                    if (Util.kReport && !ped.Can)
+                        space.AddToReporter(ped.ReportLine);
                     Util.DrawPed(graphics, ped);
                 }
                 // every ped run and do remove job

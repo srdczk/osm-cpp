@@ -22,6 +22,8 @@ namespace OSM
         // addY
         public double AddY { get; }
 
+        // the file to print
+        public int Cnt { get; set; }
 
         // add ped to floor
         public void Add(Ped ped)
@@ -43,6 +45,8 @@ namespace OSM
 
         public Floor(int floor)
         {
+            // cnt to generate 
+            Cnt = 0;
             // init all
             Peds = new HashSet<Ped>();
             Walls = new HashSet<Wall>();
