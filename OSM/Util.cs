@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Collections.Generic;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace OSM
 {
@@ -76,7 +77,9 @@ namespace OSM
         // k add width and height
         public static double kAddWidth = 5.0;
         public static double kAddHeight = 5.0;
-
+        // draw text need add x, add y
+        public static double kTextAddX = 1.5;
+        public static double kTextAddY = -1.2;
         // all floors
         public static int kFloorNum = 20;
         // scale 
@@ -141,7 +144,7 @@ namespace OSM
         public static void DrawText(Graphics g, string text, double x, double y)
         {
             // consolas to write text
-            Font font = new Font("Consolas", 12, FontStyle.Bold);
+            Font font = new Font("Consolas", (float)(kScale / 2.0), FontStyle.Bold);
 
             g.DrawString(text, font, Brushes.Black, (float)(x * kScale + kWidth * kScale), (float)(y * kScale + kHeight * kScale));
         }
@@ -159,8 +162,15 @@ namespace OSM
             {
                 DrawWall(g, wall);
             }
-            
-            DrawText(g, (floor.Number + 1).ToString() + "-" + (floor.Number + 2).ToString(), floor.AddX + 1.5, floor.AddY - 1.2);
+
+            if (floor.Start)
+                DrawText(g, (floor.Number + 0.5).ToString() + "-" + (floor.Number + 1).ToString(), floor.AddX + kTextAddX, floor.AddY + kTextAddY);
+            else if (floor.End)
+                DrawText(g, (floor.Number + 1).ToString() + "-" + (floor.Number + 1.5).ToString(), floor.AddX + kTextAddX, floor.AddY + kTextAddY);
+            else
+                DrawText(g, (floor.Number + 0.5).ToString() + "-" + (floor.Number + 1.5).ToString(), floor.AddX + kTextAddX, floor.AddY + kTextAddY);
+
+
         }
         // corner width of evacuation
         public static double GetCornerSff(double max, double min, double tanX)
@@ -681,6 +691,11 @@ namespace OSM
                 return result;
             }
             return min;
+        }
+        // set system's size
+        public static void SetChartLength(Chart chart)
+        {
+            chart.Size = new Size(10 * 50, 300);
         }
 
     }

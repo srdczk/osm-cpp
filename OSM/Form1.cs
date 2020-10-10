@@ -31,10 +31,17 @@ namespace OSM
 
             space = new Space().Init(Util.kReport);
 
+
             InitializeComponent();
 
             timer1.Enabled = false;
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            Util.SetChartLength(chart1);
+        }
+
 
         // generate report directory
         private void GenerateDirectory()
@@ -56,11 +63,16 @@ namespace OSM
             // bitmap draw
             RemoveAll();
 
+            chart1.Series[0].Points.Clear();
+
             foreach (var floor in space.Floors)
             {
 
                 if (Util.kReport && floor.Cnt != -1)
                     space.AddToReporter(floor.Number + " " + floor.Peds.Count);
+
+                chart1.Series[0].Points.AddXY(floor.Number, floor.Peds.Count); 
+
 
                 if (floor.Cnt == 0 && floor.Peds.Count > 0)
                 {
@@ -137,6 +149,8 @@ namespace OSM
             // if checked, report else not
             Util.kReport = checkBox1.Checked;
             space = space.Init(Util.kReport);
+            // update width of chart
+            Util.SetChartLength(chart1);
         }
 
         // form close -> if space's reporter are running -> stop
