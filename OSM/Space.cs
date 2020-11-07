@@ -22,19 +22,25 @@ namespace OSM
         // init floors
         public Space Init(bool report)
         {
+            Util.kAllPed = 0;
+            Util.kCumPeds = 0;
+            //Util.kTimerTick = 0;
             Floors.Clear();
             Util.kId = 0;
             for (int i = 0; i < Util.kFloorNum; i++)
             {
                 var floor = new Floor(i);
-                if (i > 0)
-                    Util.InitRandomPed(floor, this);
+                //if (i > 0)
+                //    Util.InitRandomPed(floor, this);
                 Floors.Add(floor);
             }
             if (Util.kFloorNum >= 10)
                 Util.kScale = 14.0;
             else
                 Util.kScale = 14.0 + (10 - Util.kFloorNum) * 2.0;
+
+
+
 
             if (Util.kFloorNum > 40)
             {
@@ -58,7 +64,7 @@ namespace OSM
             }
             else
             {
-                Util.kWidth = (Util.kFloorNum - 10) * 5.0;
+                Util.kWidth = (Util.kFloorNum - 10) * 10.0;
                 Util.kHeight = 20.0 + (Util.kFloorNum - 10) * 2.0;
             }
 
@@ -72,6 +78,7 @@ namespace OSM
             {
                 reporter.Stop();
             }
+
 
             if (report)
                 reporter = new Reporter(FileName, Util.kFloorNum);

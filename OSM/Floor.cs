@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+using static OSM.Util;
+
 namespace OSM
 {
     class Floor
@@ -55,8 +57,10 @@ namespace OSM
             Number = floor;
             Start = floor == Util.kFloorNum - 1;
             End = floor == 0;
+            // modify from here, addX should ++
             // if !Number is end
-            var addX = Util.kAddWidth + (9 - (floor % 10)) * 5;
+            var addX = Util.kAddWidth + (9 - (floor % 10)) * 12;
+            //var addX = Util.kAddWidth + (9 - (floor % 10)) * 5;
             var addY = Util.kAddHeight + (floor / 10) * 10;
             // set addx and addy to draw text
             AddX = addX;
@@ -64,25 +68,34 @@ namespace OSM
             // to modify easy, number to variable
             if (Start)
             {
-                Walls.Add(new Wall(addX, addY - Util.kEnterHeight, 
-                    addX, addY + Util.kStairNum * Util.kStairLength + 2 * Util.kCornerHeight));
-                Walls.Add(new Wall(addX, addY + Util.kStairNum * Util.kStairLength + 2 * Util.kCornerHeight,
-                    addX + 2 * Util.kCornerWidth + Util.kIntervalLength, addY + Util.kStairNum * Util.kStairLength + 2 * Util.kCornerHeight));
-                Walls.Add(new Wall(addX + 2 * Util.kCornerWidth + Util.kIntervalLength, addY + Util.kStairNum * Util.kStairLength + 2 * Util.kCornerHeight,
-                    addX + 2 * Util.kCornerWidth + Util.kIntervalLength, addY + Util.kStairNum * Util.kStairLength + Util.kCornerHeight));
-                Walls.Add(new Wall(addX + Util.kCornerWidth, addY - Util.kEnterHeight,
-                    addX + Util.kCornerWidth, addY + Util.kStairNum * Util.kStairLength + Util.kCornerHeight));
-                Walls.Add(new Wall(addX + Util.kCornerWidth, addY + Util.kStairNum * Util.kStairLength + Util.kCornerHeight,
-                    addX + Util.kCornerWidth + Util.kIntervalLength, addY + Util.kStairNum * Util.kStairLength + Util.kCornerHeight));
-                // set this wall green
-                var greenWall = new Wall(addX + Util.kCornerWidth + Util.kIntervalLength, addY + Util.kStairNum * Util.kStairLength + Util.kCornerHeight,
-                    addX + 2 * Util.kCornerWidth + Util.kIntervalLength, addY + Util.kStairNum * Util.kStairLength + Util.kCornerHeight);
+                Walls.Add(new Wall(addX - kEnterWidth, addY, addX + kCornerWidth, addY));
+                Walls.Add(new Wall(addX + kCornerWidth, addY, 
+                    addX + kCornerWidth, addY + kCornerHeight + kStairNum * kStairLength));
+
+                Walls.Add(new Wall(addX + kCornerWidth, addY + kCornerHeight + kStairNum * kStairLength, 
+                    addX + kCornerWidth + kIntervalLength, addY + kCornerHeight + kStairNum * kStairLength));
+
+                var greenWall = new Wall(addX + kCornerWidth + kIntervalLength, addY + kStairNum * kStairLength + kCornerHeight,
+                    addX + 2 * kCornerWidth + kIntervalLength, addY + kStairLength * kStairNum + kCornerHeight);
                 greenWall.Green = true;
                 Walls.Add(greenWall);
-                for (int i = 0; i <= Util.kStairNum; i++)
+
+                Walls.Add(new Wall(addX - kEnterWidth, addY + kCornerHeight, addX, addY + kCornerHeight));
+
+                Walls.Add(new Wall(addX, addY + kCornerHeight, addX, addY + 2 * kCornerHeight + kStairNum * kStairLength));
+                Walls.Add(new Wall(addX, addY + 2 * kCornerHeight + kStairNum * kStairLength, 
+                    addX + 2 * kCornerWidth + kIntervalLength, addY + 2 * kCornerHeight + kStairNum * kStairLength));
+
+                Walls.Add(new Wall(addX + 2 * kCornerWidth + kIntervalLength, addY + 2 * kCornerHeight + kStairNum * kStairLength,
+                    addX + 2 * kCornerWidth + kIntervalLength, addY + kCornerHeight + kStairLength * kStairNum));
+
+                for (int i = 0; i < kStairNum + 1; i++)
                 {
-                    Virtual.Add(new Wall(addX, addY + Util.kCornerHeight + i * Util.kStairLength, addX + Util.kCornerWidth, addY + Util.kCornerHeight + i * Util.kStairLength));
+                    Virtual.Add(new Wall(addX, addY + kCornerHeight + i * kStairLength,
+                        addX + kCornerWidth, addY + kCornerHeight + i * kStairLength));
                 }
+
+
             }
             else if (End)
             {
@@ -116,23 +129,26 @@ namespace OSM
                 greenWall.Green = true;
                 Walls.Add(greenWall);
 
-                Walls.Add(new Wall(addX, addY - Util.kEnterHeight, 
-                    addX, addY + 2 * Util.kCornerHeight + Util.kStairLength * Util.kStairNum));
-                Walls.Add(new Wall(addX, addY + 2 * Util.kCornerHeight + Util.kStairLength * Util.kStairNum,
-                    addX + 2 * Util.kCornerWidth + Util.kIntervalLength, addY + 2 * Util.kCornerHeight + Util.kStairLength * Util.kStairNum));
-                Walls.Add(new Wall(addX + 2 * Util.kCornerWidth + Util.kIntervalLength, addY + 2 * Util.kCornerHeight + Util.kStairLength * Util.kStairNum,
-                    addX + 2 * Util.kCornerWidth + Util.kIntervalLength, addY));
-                Walls.Add(new Wall(addX + 2 * Util.kCornerWidth + Util.kIntervalLength, addY, addX + Util.kCornerWidth, addY));
-                Walls.Add(new Wall(addX + Util.kCornerWidth, addY, addX + Util.kCornerWidth, addY - Util.kEnterHeight));
+                Walls.Add(new Wall(addX - kEnterWidth, addY, addX + 2 * kCornerWidth + kIntervalLength, addY));
+                Walls.Add(new Wall(addX - kEnterWidth, addY + kCornerHeight, addX, addY + kCornerHeight));
 
-                Walls.Add(new Wall(addX + Util.kCornerWidth, addY + Util.kCornerHeight, 
-                    addX + Util.kCornerWidth, addY + Util.kCornerHeight + Util.kStairLength * Util.kStairNum));
-                Walls.Add(new Wall(addX + Util.kCornerWidth, addY + Util.kCornerHeight + Util.kStairLength * Util.kStairNum,
-                    addX + Util.kCornerWidth + Util.kIntervalLength, addY + Util.kCornerHeight + Util.kStairLength * Util.kStairNum));
-                Walls.Add(new Wall(addX + Util.kCornerWidth + Util.kIntervalLength, addY + Util.kCornerHeight + Util.kStairLength * Util.kStairNum,
-                    addX + Util.kCornerWidth + Util.kIntervalLength, addY + Util.kCornerHeight));
-                Walls.Add(new Wall(addX + Util.kCornerWidth + Util.kIntervalLength, addY + Util.kCornerHeight,
-                    addX + Util.kCornerWidth, addY + Util.kCornerHeight));
+                Walls.Add(new Wall(addX, addY + kCornerHeight, addX, addY + 2 * kCornerHeight + kStairNum * kStairLength));
+                Walls.Add(new Wall(addX, addY + 2 * kCornerHeight + kStairNum * kStairLength, 
+                    addX + 2 * kCornerWidth + kIntervalLength, addY + 2 * kCornerHeight + kStairNum * kStairLength));
+
+                Walls.Add(new Wall(addX + 2 * kCornerWidth + kIntervalLength, addY + 2 * kCornerHeight + kStairNum * kStairLength,
+                    addX + 2 * kCornerWidth + kIntervalLength, addY));
+
+                Walls.Add(new Wall(addX + kCornerWidth, addY + kCornerHeight, 
+                    addX + kCornerWidth, addY + kCornerHeight + kStairNum * kStairLength));
+                Walls.Add(new Wall(addX + kCornerWidth, addY + kCornerHeight + kStairNum * kStairLength, 
+                    addX + kCornerWidth + kIntervalLength, addY + kCornerHeight + kStairNum * kStairLength));
+
+                Walls.Add(new Wall(addX + kCornerWidth + kIntervalLength, addY + kCornerHeight + kStairNum * kStairLength, 
+                    addX + kCornerWidth + kIntervalLength, addY + kCornerHeight));
+                Walls.Add(new Wall(addX + kCornerWidth + kIntervalLength, addY + kCornerHeight,
+                    addX + kCornerWidth, addY + kCornerHeight));
+
 
                 for (int i = 0; i <= Util.kStairNum; i++)
                 {

@@ -1,16 +1,31 @@
 ﻿using System;
 using System.Drawing;
 using System.Collections.Generic;
-using System.Windows.Forms.DataVisualization.Charting;
+using System.Collections;
 
 namespace OSM
 {
     class Util
     {
+        public static int kAllPed = 0;
+        // cumulative number of peds
+        public static int kCumPeds = 0;
+        // max seconds
+        public static int kMaxSeconds = 0;
+        // hash table to contain peds
+        public static Hashtable pedsTable = new Hashtable();
+        public static double kPedScale = 0.8;
+        // the timer cnt, which count the timer tick
+        public static int kTimerCnt = 0;
+        // step per seconds
+        public static double kStepPerSeconds = 2.5;
+        //  a timer tick = 0.25
+        public static double kTimerTick = 1.0 / kStepPerSeconds;
         // turn on or off report
         public static bool kReport = false;
         // ped sum, to stop report when there is not ped in space
         public static int kPedSum = (kFloorNum - 1) * (kInitPedNum);
+        public static int kAddTimerTick = 35;
         // timeout mill seconds
         public static int kTimeout = 1000;
         // initial ped num
@@ -20,7 +35,7 @@ namespace OSM
         // max ped's num per floor
         public static int kMaxFloorPedNum = 105;
         // min and max floors
-        public static int kMinFloor = 3;
+        public static int kMinFloor = 6;
         public static int kMaxFloor = 50;
         // step split to 3
         public static int kStepSp = 3;
@@ -33,7 +48,7 @@ namespace OSM
         // circle split
         public static int kCircleSp = 20;
         // step length of ped
-        public static double kStepLen = 0.3;
+        public static double kStepLen = 0.27;
         // params of model ped
         public static double kMuP = 10000.0;
         public static double kVP = 0.4;
@@ -60,28 +75,26 @@ namespace OSM
         }
         // the variable of floor's stair 
         // enter's width and height
-        public static double kEnterWidth = 1.5;
-        public static double kEnterHeight = 1.5;
+        public static double kEnterWidth = 1.44;
+        public static double kEnterHeight = 1.44;
         // the coner's width and height
-        public static double kCornerWidth = 1.5;
-        public static double kCornerHeight = 1.5;
+        public static double kCornerWidth = 1.44;
+        public static double kCornerHeight = 1.44;
         // stair's length and width
-        public static double kStairWidth = 1.5;
-        public static double kStairLength = 0.3;
+        public static double kStairWidth = 1.44;
+        public static double kStairLength = 0.28;
         // number of stair
-        public static int kStairNum = 12;
+        public static int kStairNum = 8;
         // Interval len
-        public static double kIntervalLength = 0.5;
+        public static double kIntervalLength = 0.3;
         // Exit's size
-        public static double kExitLength = 1.5;
+        public static double kExitLength = 1.44;
         // k add width and height
         public static double kAddWidth = 5.0;
         public static double kAddHeight = 5.0;
-        // draw text need add x, add y
-        public static double kTextAddX = 1.5;
-        public static double kTextAddY = -1.2;
+
         // all floors
-        public static int kFloorNum = 20;
+        public static int kFloorNum = 6;
         // scale 
         public static double kScale = 14.0;
         // width and height
@@ -144,7 +157,7 @@ namespace OSM
         public static void DrawText(Graphics g, string text, double x, double y)
         {
             // consolas to write text
-            Font font = new Font("Consolas", (float)(kScale / 2.0), FontStyle.Bold);
+            Font font = new Font("Consolas", 12, FontStyle.Bold);
 
             g.DrawString(text, font, Brushes.Black, (float)(x * kScale + kWidth * kScale), (float)(y * kScale + kHeight * kScale));
         }
@@ -162,15 +175,8 @@ namespace OSM
             {
                 DrawWall(g, wall);
             }
-
-            if (floor.Start)
-                DrawText(g, (floor.Number + 0.5).ToString() + "-" + (floor.Number + 1).ToString(), floor.AddX + kTextAddX, floor.AddY + kTextAddY);
-            else if (floor.End)
-                DrawText(g, (floor.Number + 1).ToString() + "-" + (floor.Number + 1.5).ToString(), floor.AddX + kTextAddX, floor.AddY + kTextAddY);
-            else
-                DrawText(g, (floor.Number + 0.5).ToString() + "-" + (floor.Number + 1.5).ToString(), floor.AddX + kTextAddX, floor.AddY + kTextAddY);
-
-
+            
+            DrawText(g, (floor.Number + 1).ToString() + "-" + (floor.Number + 2).ToString(), floor.AddX + 1.5, floor.AddY - 1.2);
         }
         // corner width of evacuation
         public static double GetCornerSff(double max, double min, double tanX)
@@ -321,30 +327,35 @@ namespace OSM
             var vector = pos.NewSubtract(floor.AddX, floor.AddY);
             if (floor.Start)
             {
-                if (vector.X >= kR && vector.X <= kEnterWidth - kR && 
-                    vector.Y <= 0 && vector.Y >= -kEnterHeight)
+                if (vector.X >= -kEnterWidth + kR && vector.X <= 0 &&
+                    vector.Y >= kR && vector.Y <= kEnterHeight - kR)
                     return Block.StartBlock;
 
-                if (vector.X >= kR && vector.X <= kEnterWidth - kR && 
-                    vector.Y >= 0 && vector.Y <= kCornerHeight)
+                if (vector.X >= 0 && vector.X <= kCornerWidth - kR &&
+                    vector.Y >= kR && vector.Y <= kCornerHeight)
                     return Block.FirstCorner;
 
-                if (vector.X >= kR && vector.X <= kEnterWidth - kR && 
-                    vector.Y >= kCornerHeight && vector.Y <= kCornerHeight + kStairLength * kStairNum)
+                if (vector.X >= kR && vector.X <= kStairWidth - kR &&
+                    vector.Y >= kCornerHeight && vector.Y <= kCornerHeight + kStairNum * kStairLength)
                     return Block.FirstStair;
-                if (vector.X >= kR && vector.X <= kEnterWidth && 
-                    vector.Y >= kCornerHeight + kStairLength * kStairNum && vector.Y <= 2 * kCornerHeight + kStairLength * kStairNum - kR)
+
+                if (vector.X >= kR && vector.X <= kCornerWidth &&
+                    vector.Y >= kCornerHeight + kStairNum * kStairLength && vector.Y <= 2 * kCornerHeight + kStairNum * kStairLength - kR)
                     return Block.SecondCorner;
-                if (vector.X >= kEnterWidth && vector.X <= kCornerWidth + kIntervalLength && 
-                    vector.Y >= kCornerHeight + kStairLength * kStairNum + kR && vector.Y <= 2 * kCornerHeight + kStairLength * kStairNum - kR)
+
+                if (vector.X >= kCornerWidth && vector.X <= kCornerWidth + kIntervalLength &&
+                    vector.Y >= kCornerHeight + kStairNum * kStairLength + kR && vector.Y <= 2 * kCornerHeight + kStairNum * kStairLength - kR)
                     return Block.FirstInterval;
+
                 if (vector.X >= kCornerWidth + kIntervalLength && vector.X <= 2 * kCornerWidth + kIntervalLength - kR &&
                     vector.Y >= kCornerHeight + kStairLength * kStairNum && vector.Y <= 2 * kCornerHeight + kStairLength * kStairNum - kR)
                     return Block.ThirdCorner;
                 if (vector.X >= kCornerWidth + kIntervalLength + kR && vector.X <= 2 * kCornerWidth + kIntervalLength - kR &&
                     vector.Y <= kCornerHeight + kStairNum * kStairLength /*should not run over one step*/ && vector.Y >= kCornerHeight + kStairNum * kStairLength - kStepLen)
                     return Block.SecondStair;
+
                 return Block.OutOfSize;
+
             }
             else if (floor.End)
             {
@@ -363,12 +374,12 @@ namespace OSM
             }
             else
             {
-                if (vector.X >= kR && vector.X <= kEnterWidth - kR &&
-                    vector.Y <= 0 && vector.Y >= -kEnterHeight)
+                if (vector.X >= -kEnterWidth + kR && vector.X <= 0 &&
+                    vector.Y >= kR && vector.Y <= kEnterHeight - kR)
                     return Block.StartBlock;
 
-                if (vector.X >= kR && vector.X <= kEnterWidth &&
-                    vector.Y >= 0 && vector.Y <= kCornerHeight)
+                if (vector.X >= 0 && vector.X <= kCornerWidth - kR &&
+                    vector.Y >= kR && vector.Y <= kCornerHeight)
                     return Block.FirstCorner;
 
                 if (vector.X >= kR && vector.X <= kEnterWidth - kR &&
@@ -395,12 +406,13 @@ namespace OSM
                     vector.Y >= kR && vector.Y <= kCornerHeight)
                     return Block.FourthCorner;
 
-                if (vector.X >= kCornerWidth && vector.X <= kCornerWidth + kIntervalLength && 
+                if (vector.X >= kCornerWidth && vector.X <= kCornerWidth + kIntervalLength &&
                     vector.Y >= kR && vector.Y <= kCornerHeight - kR)
                     return Block.SecondInterval;
 
                 return Block.OutOfSize;
             }
+            
         }
         // calculate the floor field
         public static double GetSff(Ped ped, Vector target)
@@ -419,19 +431,26 @@ namespace OSM
                 {
                     
                     case Block.StartBlock:
+                        
                         // by curBlock to judge
                         if (curBlock != Block.StartBlock) return Double.MaxValue;
-                        return -vector.Y * kSffScale;
+
+                        return -kCornerHeight * kSffScale + kCornerVal - vector.X * kSffScale;
                     case Block.FirstCorner:
                         if (curBlock != Block.StartBlock && curBlock != Block.FirstCorner) return Double.MaxValue;
-                        return -vector.Y * kSffScale;
+                        // if in the first corner, max value and min value
+                        // min value -kCornerHeight * kSffScale
+                        // max value -kCornerHeight * kSffScale + kCornerVal
+                        var tanX = (kCornerHeight - vector.Y) / (vector.X);
+                        return GetCornerSff(-kCornerHeight * kSffScale + kCornerVal, -kCornerHeight * kSffScale, tanX);
+
                     case Block.FirstStair:
                         if (curBlock != Block.FirstStair && curBlock != Block.FirstCorner) return Double.MaxValue;
                         return -vector.Y * kSffScale;
                     case Block.SecondCorner:
                         if (curBlock != Block.SecondCorner && curBlock != Block.FirstStair) return Double.MaxValue;
                         // second corner in this target
-                        var tanX = (kCornerWidth - vector.X) / (double)(vector.Y - kCornerHeight - kStairNum * kStairLength);
+                        tanX = (kCornerWidth - vector.X) / (double)(vector.Y - kCornerHeight - kStairNum * kStairLength);
                         return GetCornerSff(-(kCornerHeight + kStairNum * kStairLength) * kSffScale, 
                             -(kCornerHeight + kStairNum * kStairLength) * kSffScale - kCornerVal, tanX);
                     case Block.FirstInterval:
@@ -475,12 +494,14 @@ namespace OSM
                     case Block.StartBlock:
                         if (ped.StartFloor != atFloor.Number) return Double.MaxValue;
                         if (curBlock != Block.StartBlock) return Double.MaxValue;
-                        return -vector.Y * kSffScale;
+
+                        return -kCornerHeight * kSffScale + kCornerVal - vector.X * kSffScale;
                     case Block.FirstCorner:
                         if (ped.StartFloor == atFloor.Number)
                         {
                             if (curBlock != Block.StartBlock && curBlock != Block.FirstCorner) return Double.MaxValue;
-                            return -vector.Y * kSffScale;
+                            var tan = (kCornerHeight - vector.Y) / (vector.X);
+                            return GetCornerSff(-kCornerHeight * kSffScale + kCornerVal, -kCornerHeight * kSffScale, tan);
                         }
                         if (curBlock != Block.SecondInterval && curBlock != Block.FirstCorner) return Double.MaxValue;
                         var tanX = (kCornerHeight - vector.Y) / (double)(kCornerWidth - vector.X);
@@ -631,8 +652,8 @@ namespace OSM
             // add init ped count to every floor
             for (int i = 0; i < kInitPedNum; i++)
             {
-                double x = floor.AddX + GetRandom() * (kCornerWidth - 2 * kR) + kR;
-                double y = floor.AddY - GetRandom() * (kCornerWidth - 2 * kR) - kR;
+                double x = floor.AddX - GetRandom() * (kCornerWidth - 2 * kR) - kR;
+                double y = floor.AddY + GetRandom() * (kCornerWidth - 2 * kR) + kR;
                 bool can = true;
                 while (can)
                 {
@@ -642,8 +663,8 @@ namespace OSM
                         if (ped.CurPos.DistanceTo(x, y) < 2 * kR)
                         {
                             can = true;
-                            x = floor.AddX + GetRandom() * (kCornerWidth - 2 * kR) + kR;
-                            y = floor.AddY - GetRandom() * (kCornerWidth - 2 * kR) - kR;
+                            x = floor.AddX - GetRandom() * (kCornerWidth - 2 * kR) - kR;
+                            y = floor.AddY + GetRandom() * (kCornerWidth - 2 * kR) + kR;
                         }
                     }
                 }
@@ -654,8 +675,8 @@ namespace OSM
         // add random ped to floor(judge cnt to avoid dead loop)
         public static bool AddRandomPed(Floor floor, Space space)
         {
-            double x = floor.AddX + GetRandom() * (kCornerWidth - 2 * kR) + kR;
-            double y = floor.AddY - GetRandom() * (kCornerWidth - 2 * kR) - kR;
+            double x = floor.AddX - GetRandom() * (kCornerWidth - 2 * kR) - kR;
+            double y = floor.AddY + GetRandom() * (kCornerWidth - 2 * kR) + kR;
             int cnt = 0;
             bool can = true;
             while (can && cnt < 5)
@@ -667,8 +688,8 @@ namespace OSM
                     {
                         can = true;
                         cnt++;
-                        x = floor.AddX + GetRandom() * (kCornerWidth - 2 * kR) + kR;
-                        y = floor.AddY - GetRandom() * (kCornerWidth - 2 * kR) - kR;
+                        x = floor.AddX - GetRandom() * (kCornerWidth - 2 * kR) - kR;
+                        y = floor.AddY + GetRandom() * (kCornerWidth - 2 * kR) + kR;
                     }
                 }
             }
@@ -692,11 +713,14 @@ namespace OSM
             }
             return min;
         }
-        // set system's size
-        public static void SetChartLength(Chart chart)
-        {
-            chart.Size = new Size(10 * 50, 300);
-        }
 
+        // calculate the seconds
+        public static int CalculateSeconds(int timerTick, double interval)
+        {
+            Console.WriteLine(timerTick + " " + interval);
+            double res = timerTick * interval;
+            return (int)Math.Round(res);
+        }
+        
     }
 }

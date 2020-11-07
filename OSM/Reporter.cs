@@ -54,6 +54,29 @@ namespace OSM
                     writes.Add(writer);
                 }
             }
+            // add sum report
+            var sumPath = fileName + "sum.txt";
+
+            FileStream sumStream;
+            if (!File.Exists(sumPath))
+                sumStream = new FileStream(sumPath, FileMode.CreateNew);
+            else
+                sumStream = new FileStream(sumPath, FileMode.Append);
+            var sumWriter = new StreamWriter(sumStream);
+            fileStreams.Add(sumStream);
+            writes.Add(sumWriter);
+            var allPath = fileName + "all.txt";
+
+            FileStream allStream;
+            if (!File.Exists(allPath))
+                allStream = new FileStream(allPath, FileMode.CreateNew);
+            else
+                allStream = new FileStream(allPath, FileMode.Append);
+
+            var allWriter = new StreamWriter(allStream);
+            fileStreams.Add(allStream);
+            writes.Add(allWriter);
+
             outThread.Start();
         }
 
@@ -75,7 +98,7 @@ namespace OSM
                 {
                     if (item.Length > 6)
                     {
-                        var index = writes.Count - 1;
+                        var index = writes.Count - 3;
                         writes[index].WriteLine(item);
                         writes[index].Flush();
                     }
@@ -100,7 +123,7 @@ namespace OSM
                     {
                         if (item.Length > 6)
                         {
-                            var index = writes.Count - 1;
+                            var index = writes.Count - 3;
                             writes[index].WriteLine(item);
                             writes[index].Flush();
                         }
