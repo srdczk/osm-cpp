@@ -104,7 +104,7 @@ namespace OSM
             }
 
             // init from floor 5
-            var index = Util.CalculateSeconds(Util.kTimerCnt - Util.kAddTimerTick, Util.kTimerTick);
+            var index = Util.CalculateSeconds(Util.kTimerCnt, Util.kTimerTick);
 
             if (Util.pedsTable[index] != null)
             {
@@ -116,8 +116,6 @@ namespace OSM
                 }
                 Util.pedsTable[index] = null;
             }
-
-            
 
             double p = 0;
             foreach (var floor in space.Floors)
@@ -157,12 +155,14 @@ namespace OSM
 
             CreateGraphics().DrawImage(bitmap, 0, 0);
 
+            // should not show this
+
             if (index == Util.kMaxSeconds)
             {
                 timer1.Enabled = !timer1.Enabled;
                 button1.Text = "Start";
             }
-            Console.WriteLine(Util.kAllPed);
+            //Console.WriteLine(Util.kAllPed);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -196,7 +196,7 @@ namespace OSM
                 space.StopReport();
 
             fileReader.CloseReader();
-            
+
         }
 
     }

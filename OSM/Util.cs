@@ -18,7 +18,7 @@ namespace OSM
         // the timer cnt, which count the timer tick
         public static int kTimerCnt = 0;
         // step per seconds
-        public static double kStepPerSeconds = 2.5;
+        public static double kStepPerSeconds = 2.0;
         //  a timer tick = 0.25
         public static double kTimerTick = 1.0 / kStepPerSeconds;
         // turn on or off report
@@ -29,13 +29,13 @@ namespace OSM
         // timeout mill seconds
         public static int kTimeout = 1000;
         // initial ped num
-        public static int kInitPedNum = 5;
+        public static int kInitPedNum = 3;
         // peds per floor
         public static int kFloorPedNum = 100;
         // max ped's num per floor
         public static int kMaxFloorPedNum = 105;
         // min and max floors
-        public static int kMinFloor = 6;
+        public static int kMinFloor = 13;
         public static int kMaxFloor = 50;
         // step split to 3
         public static int kStepSp = 3;
@@ -75,26 +75,26 @@ namespace OSM
         }
         // the variable of floor's stair 
         // enter's width and height
-        public static double kEnterWidth = 1.44;
-        public static double kEnterHeight = 1.44;
+        public static double kEnterWidth = 1.12;
+        public static double kEnterHeight = 1.12;
         // the coner's width and height
-        public static double kCornerWidth = 1.44;
-        public static double kCornerHeight = 1.44;
+        public static double kCornerWidth = 1.12;
+        public static double kCornerHeight = 1.12;
         // stair's length and width
-        public static double kStairWidth = 1.44;
-        public static double kStairLength = 0.28;
+        public static double kStairWidth = 1.12;
+        public static double kStairLength = 0.31;
         // number of stair
-        public static int kStairNum = 8;
+        public static int kStairNum = 9;
         // Interval len
-        public static double kIntervalLength = 0.3;
+        public static double kIntervalLength = 0.2;
         // Exit's size
-        public static double kExitLength = 1.44;
+        public static double kExitLength = 1.12;
         // k add width and height
         public static double kAddWidth = 5.0;
         public static double kAddHeight = 5.0;
 
         // all floors
-        public static int kFloorNum = 6;
+        public static int kFloorNum = 13;
         // scale 
         public static double kScale = 14.0;
         // width and height
